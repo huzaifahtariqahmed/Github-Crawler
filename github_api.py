@@ -1,6 +1,7 @@
 import requests
 import time
 import os
+from models import Repository
 
 GITHUB_API_URL = "https://api.github.com/graphql"
 TOKEN = os.getenv("GITHUB_TOKEN")
@@ -12,6 +13,21 @@ def run_query(query):
         return response.json()
     else:
         raise Exception(f"Query failed with status code {response.status_code}: {response.text}")
+    
+def parse_repositories(edges):
+    """Convert raw GraphQL repo data into immutable Repository objects."""
+    repos = []
+    for edge in edges:
+        node = edge["node"]
+        repos.append(
+            Repository(
+                repo_id=node["databaseId"],
+                name=node["name"],
+                owner=node["owner"]["login"],
+                stars=node["stargazerCount"],
+            )
+        )
+    return repos
 
 def check_rate_limit():
     query = """
