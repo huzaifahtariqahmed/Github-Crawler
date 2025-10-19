@@ -1,22 +1,11 @@
-Perfect — you’ve structured your project beautifully, Huzaifah.
-Now what you need is a **professional, detailed `README.md`** that:
-
-* clearly explains what the project does,
-* provides step-by-step setup instructions (both locally and via GitHub Actions), and
-* demonstrates that you followed solid software engineering principles.
-
-Here’s a complete, submission-ready version you can paste directly into your repo.
-
----
-
-# 🚀 GitHub Crawler
+# GitHub Crawler
 
 A Python-based GitHub crawler that uses the **GitHub GraphQL API** to fetch repository data (name, owner, stars) for large-scale analytics.
 The project stores results in **PostgreSQL**, supports **continuous daily crawling**, and is fully automated through a **GitHub Actions pipeline**.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Github-Crawler/
@@ -37,7 +26,7 @@ Github-Crawler/
 
 ---
 
-## 🧠 Overview
+## Overview
 
 This project fulfills Sofstica’s **AI Engineer Assignment** requirement to:
 
@@ -49,7 +38,7 @@ This project fulfills Sofstica’s **AI Engineer Assignment** requirement to:
 
 ---
 
-## 🧱 Architecture & Design Principles
+## Architecture & Design Principles
 
 | Principle                  | Implementation                                                                         |
 | -------------------------- | -------------------------------------------------------------------------------------- |
@@ -61,7 +50,7 @@ This project fulfills Sofstica’s **AI Engineer Assignment** requirement to:
 
 ---
 
-## 🧩 Key Components
+## Key Components
 
 ### 1. `models.py`
 
@@ -103,7 +92,7 @@ Coordinates the process:
 
 ---
 
-## ⚙️ Local Setup Instructions
+## Local Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -151,7 +140,7 @@ You’ll see progress as repositories are fetched and stored.
 
 ---
 
-## 🧪 Testing Database Connection
+## Testing Database Connection
 
 To quickly verify DB connectivity:
 
@@ -162,14 +151,14 @@ python test_db.py
 If it prints:
 
 ```
-✅ Connection successful!
+Connection successful!
 ```
 
 you’re ready to go.
 
 ---
 
-## 🤖 GitHub Actions (Automated Run)
+## GitHub Actions (Automated Run)
 
 This project includes a workflow (`crawler.yml`) that:
 
@@ -188,12 +177,12 @@ This project includes a workflow (`crawler.yml`) that:
 
 When complete:
 
-* You’ll see ✅ **Job succeeded**.
+* You’ll see **Job succeeded**.
 * Scroll down to **Artifacts** and download **`github-stars-data`** → contains `data.csv`.
 
 ---
 
-## 🧠 Extensibility: Future Metadata (Issues, PRs, Comments)
+## Extensibility: Future Metadata (Issues, PRs, Comments)
 
 To collect additional metadata:
 
@@ -206,7 +195,7 @@ This modular structure allows adding new entity types **without modifying existi
 
 ---
 
-## 🧹 Maintenance Commands
+## Maintenance Commands
 
 ```bash
 # Recreate environment
@@ -221,6 +210,6 @@ make update-reqs
 
 ---
 
-## 📜 License
+## License
 
 This project is released under the [MIT License](LICENSE).
