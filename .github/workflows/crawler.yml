@@ -37,10 +37,12 @@ jobs:
 
       - name: Wait for Postgres to be ready
         run: |
-          sleep 10
+          sleep 20
           pg_isready -h localhost -U huzaifah -d github_data
 
       - name: Setup Postgres schema
+        env:
+          PGPASSWORD: 1234
         run: |
           psql -h localhost -U huzaifah -d github_data -f schema.sql
 
@@ -51,6 +53,8 @@ jobs:
           python main.py
 
       - name: Dump DB to SQL
+        env:
+          PGPASSWORD: 1234
         run: |
           pg_dump -h localhost -U huzaifah -d github_data -t repositories --data-only --column-inserts > data.sql
           mkdir -p artifacts
