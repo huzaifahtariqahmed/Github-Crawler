@@ -120,7 +120,7 @@ conda env update -f environment.yml --prune
 
 ```bash
 docker run --name github-postgres \
-  -e POSTGRES_USER=huzaifah \
+  -e POSTGRES_USER=user \
   -e POSTGRES_PASSWORD=1234 \
   -e POSTGRES_DB=github_data \
   -p 5432:5432 \
