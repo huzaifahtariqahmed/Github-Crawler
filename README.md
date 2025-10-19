@@ -97,7 +97,7 @@ Coordinates the process:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/Github-Crawler.git
+git clone https://github.com/huzaifahtariqahmed/Github-Crawler.git
 cd Github-Crawler
 ```
 
