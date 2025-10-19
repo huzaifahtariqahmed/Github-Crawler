@@ -158,7 +158,7 @@ you’re ready to go.
 
 ---
 
-## GitHub Actions (Automated Run)
+## GitHub Actions
 
 This project includes a workflow (`crawler.yml`) that:
 
@@ -179,19 +179,6 @@ When complete:
 
 * You’ll see **Job succeeded**.
 * Scroll down to **Artifacts** and download **`github-stars-data`** → contains `data.csv`.
-
----
-
-## Extensibility: Future Metadata (Issues, PRs, Comments)
-
-To collect additional metadata:
-
-* Add new dataclasses in `models.py` (e.g. `Issue`, `PullRequest`, `Comment`).
-* Create corresponding tables in `schema.sql`.
-* Extend `github_api.py` with GraphQL fragments for issues, PRs, etc.
-* Use `ON CONFLICT` upserts to handle updates efficiently.
-
-This modular structure allows adding new entity types **without modifying existing code**, only extending it.
 
 ---
 
