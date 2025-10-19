@@ -52,16 +52,15 @@ jobs:
         run: |
           python main.py
 
-      - name: Dump DB to SQL
+      - name: Dump DB to CSV
         env:
           PGPASSWORD: 1234
         run: |
-          pg_dump -h localhost -U huzaifah -d github_data -t repositories --data-only --column-inserts > data.sql
           mkdir -p artifacts
-          mv data.sql artifacts/
+          psql -h localhost -U huzaifah -d github_data -c "\copy (SELECT * FROM repositories) TO 'artifacts/data.csv' WITH CSV HEADER"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-stars-data
-          path: artifacts/data.sql
+          path: artifacts/data.csv
