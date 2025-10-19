@@ -1,0 +1,13 @@
+name: GitCrawler   # change this to your project name
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python
+  - python=3.13.5
+  - pip
+  
+  # Pip-only packages
+  - pip:
+      - requests
+      - psycopg2-binary
