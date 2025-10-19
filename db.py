@@ -25,6 +25,23 @@ def create_table():
     cur.close()
     conn.close()
     print("Table created successfully!")
+    
+def insert_repositories(repos):
+    if not repos:
+        return  # no data to insert
 
-if __name__ == "__main__":
-    create_table()
+    conn = get_connection()
+    cur = conn.cursor()
+
+    for r in repos:
+        cur.execute("""
+            INSERT INTO repositories (repo_id, name, owner, stars)
+            VALUES (%s, %s, %s, %s)
+            ON CONFLICT (repo_id) DO UPDATE SET
+                stars = EXCLUDED.stars,
+                last_updated = NOW();
+        """, (r['repo_id'], r['name'], r['owner'], r['stars']))
+
+    conn.commit()
+    cur.close()
+    conn.close()

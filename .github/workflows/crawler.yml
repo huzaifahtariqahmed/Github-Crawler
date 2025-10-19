@@ -1,0 +1,63 @@
+name: GitHub Crawler
+
+on:
+  workflow_dispatch:  # allows manual run from Actions tab
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: huzaifah
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: github_data
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U huzaifah -d github_data"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Wait for Postgres to be ready
+        run: |
+          sleep 10
+          pg_isready -h localhost -U huzaifah -d github_data
+
+      - name: Setup Postgres schema
+        run: |
+          psql -h localhost -U huzaifah -d github_data -f schema.sql
+
+      - name: Create table and crawl data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python main.py
+
+      - name: Dump DB to SQL
+        run: |
+          pg_dump -h localhost -U huzaifah -d github_data -t repositories --data-only --column-inserts > data.sql
+          mkdir -p artifacts
+          mv data.sql artifacts/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-stars-data
+          path: artifacts/data.sql
